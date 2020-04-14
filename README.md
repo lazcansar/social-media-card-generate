@@ -8,4 +8,4 @@ Bu script sayesinde twitter sosyal medya sitesi üzerinde dilediğiniz şekilde 
 
 Geliştirilmeye devam edilmektedir...
 
-veri-guncelle.php dosyası şuan çalışmamakta olup, güncellenecektir.
+veri-guncelle.php dosyası şuan çalışmamakta olup, güncellenecektir. 
