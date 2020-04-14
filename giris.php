@@ -8,7 +8,7 @@ $posta = $_POST['mail'];
 $sifre = $_POST['sifre'];
  
 if(empty($posta) || empty($sifre)){
-  header("Location: giris-yap.php?hata=girdilerbos");
+  header("Location: index.php?hata=girdilerbos");
   exit();
 }else{
  
@@ -20,7 +20,7 @@ $sonuc = $stmt->get_result();
 if($veri = $sonuc->fetch_assoc()){
 $sifrekontrol = password_verify($sifre, $veri['sifre']);
 if($sifrekontrol == false){
-  header("Location: giris-yap.php?hata=sifrehatali");
+  header("Location: index.php?hata=sifrehatali");
   exit();
 }
 else if($sifrekontrol == true){
@@ -32,7 +32,7 @@ else if($sifrekontrol == true){
 }
  
 }else{
-  header("Location: giris-yap.php");
+  header("Location: index.php");
   exit();
 }
 }

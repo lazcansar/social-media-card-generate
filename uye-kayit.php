@@ -48,7 +48,7 @@ if(isset($_GET['kayit'])){
 <input class="form-control mt-2" type="text" name="mail" placeholder="E-Posta Adresi">
 <input class="form-control mt-2" type="password" name="sifre" placeholder="Şifre">
 <input class="form-control mt-2" type="password" name="ikincisifre" placeholder="Tekrar Şifre">
-<input class="form-control mt-2 btn btn-success btn-block" type="submit" value="Kullanıcı ekle" name="kayit">
+<input class="form-control mt-2 btn btn-success btn-block" type="submit" value="Kayıt OL" name="kayit">
 </form>
 </div>
 <?php include 'footer.php' ?>
