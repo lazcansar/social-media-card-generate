@@ -6,6 +6,7 @@ if(isset($_POST['kayit'])){
   $posta = $_POST['mail'];
   $sifre = $_POST['sifre'];
   $sifredogrula = $_POST['ikincisifre'];
+  $yetki = $_POST['yetki'];
  
 if(empty($isim) || empty($posta) || empty($sifre) || empty($sifredogrula)){
   header("Location: uye-kayit.php?hata=girislerbos");
@@ -20,10 +21,10 @@ else if($sifre !== $sifredogrula){
   exit();
  
 }else{
-  $stmt = $db->prepare("INSERT INTO uye (ad, mail, sifre) VALUES (?,?,?)");
+  $stmt = $db->prepare("INSERT INTO uye (ad, mail, sifre, yetki) VALUES (?,?,?,?)");
   if($stmt === false) die("Bağlantı Hatası:".$db->error);
   $kriptosifre = password_hash($sifre, PASSWORD_DEFAULT);
-  $stmt->bind_param("sss", $isim, $posta, $kriptosifre);
+  $stmt->bind_param("sssi", $isim, $posta, $kriptosifre, $yetki);
   $stmt->execute();
   header("Location: uye-kayit.php?kayit=basarli");
   exit();
@@ -44,6 +45,7 @@ if(isset($_GET['kayit'])){
 }
  ?>
 <form action="" method="post">
+<input type="hidden" name="yetki">
 <input class="form-control mt-2" type="text" name="ad" placeholder="İsminiz">
 <input class="form-control mt-2" type="text" name="mail" placeholder="E-Posta Adresi">
 <input class="form-control mt-2" type="password" name="sifre" placeholder="Şifre">
