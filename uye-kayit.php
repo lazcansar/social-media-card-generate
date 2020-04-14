@@ -35,7 +35,7 @@ else if($sifre !== $sifredogrula){
  ?>
  
 
- <div class="container border mt-4 bg-info p-4">
+ <div class="container border mt-2 bg-info p-4">
  <?php
 if(isset($_GET['kayit'])){
   if($_GET['kayit'] == "basarli"){
