@@ -1,5 +1,6 @@
 <?php
-session_start();
+/*
+#session_start();
 include 'baglan.php';
 
 if(isset($_SESSION['mail'])){
@@ -19,6 +20,6 @@ echo '<div class="container mt-4 p-5 text-center card shadow">';
   echo '</div>';
 }
 
-
+ */
    
 ?>
