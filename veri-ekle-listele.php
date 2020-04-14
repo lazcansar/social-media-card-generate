@@ -1,11 +1,11 @@
 <?php 
 
 if(isset($_SESSION['mail'])){
-    echo '<div class="container card mt-2 bg-primary text-white">';
-  echo "Hoş geldin ".$_SESSION['mail'];
-  echo "<a href='cikis.php' class='text-white'>Çıkış Yap</a></div>";
+    echo '<div class="container shadow p-3 mt-2 bg-primary text-white">';
+  echo "Hoş geldin <b>".$_SESSION['ad']."</b> | ";
+  echo "<a class='btn btn-sm btn-success' href='cikis.php' class='text-white'>Çıkış Yap</a></div>";
   echo '
-<div class="container mt-4 p-3 veri-ekle card shadow">
+<div class="container mt-2 p-3 veri-ekle card shadow">
 
 <div class="card bg-dark mt-4 mb-4 p-3 text-white">
    <h3 class="border text-center p-2">Kayıtlı Veriler</h3>';
@@ -70,7 +70,7 @@ echo '<h3 class="border text-center p-2">Veri Ekle</h3>
    
    
 }else {
-    echo '<div class="container mt-4 p-5 text-center card shadow">';
+    echo '<div class="container mt-2 p-5 text-center card shadow">';
   include 'giris-yap.php';
   echo '</div>';
 }

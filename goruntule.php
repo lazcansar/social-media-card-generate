@@ -16,7 +16,7 @@ if ($yazilar->num_rows > 0){
         $sira = $cikti['icerik_id'];
         $baslik = $cikti['baslik'];
         $metin = $cikti['metin'];
-        echo '<div class="container text-center mt-4 border bg-light p-3">';
+        echo '<div class="container text-center mt-2 border bg-light p-3">';
         echo "<h1>".$baslik."</h1>";
         echo '</div>';
         echo '<div class="container mt-2 border bg-light p-3">';
@@ -29,7 +29,7 @@ if ($yazilar->num_rows > 0){
 }
     }
 }else {
-  echo '<div class="container mt-4 p-5 text-center card shadow">';
+  echo '<div class="container mt-2 p-5 text-center card shadow">';
   include 'giris-yap.php';
   echo '</div>';
 }
