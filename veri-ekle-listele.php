@@ -1,5 +1,7 @@
 <?php 
-
+/*eski listeleme 
+echo '<li class="mt-3">'.$baslik.' <a class="btn btn-warning btn-sm" href="goruntule.php?icerik_id='.$sira.'">Görüntüle</a> <a class="btn btn-info btn-sm" href="card.php?icerik_id='.$sira.'">Card Aç</a> <a class="btn btn-warning btn-sm" href="veri-sil.php?icerik_id='.$sira.' " onclick="return confirm('.$onay.')">Sil</a> <a class="btn btn-warning btn-sm" href="veri-guncelle.php?icerik_id='.$sira.'">Güncelle</a></li>';
+*/
 if(isset($_SESSION['mail'])){
     echo '<div class="container shadow p-3 mt-2 bg-primary text-white">';
   echo "Hoş geldin <b>".$_SESSION['ad']."</b> | ";
@@ -7,8 +9,9 @@ if(isset($_SESSION['mail'])){
   echo '
 <div class="container mt-2 p-3 veri-ekle card shadow">
 
-<div class="card bg-dark mt-4 mb-4 p-3 text-white">
-   <h3 class="text-center kayitli-veriler p-2">Kayıtlı Veriler</h3>';
+<div class="card bg-dark mt-4 mb-4 p-3">
+   <h3 class="text-center kayitli-veriler p-2">Kayıtlı Veriler</h3>
+   <div class="row row-cols-1 row-cols-md-3">';
    #kayıt ekleme bölümü buradan aşağısı
 if(isset($_GET['basariyla-silindi'])){
     echo "Kayıt başarıyla silindi...";
@@ -21,17 +24,28 @@ if ($yazilar->num_rows > 0){
     while($cikti = $yazilar->fetch_array()){
         $sira = $cikti['icerik_id'];
         $baslik = $cikti['baslik'];
+        $resim = $cikti['resim_url'];
         $metin = $cikti['metin'];
         $onay = "'Silmek istediğinize emin misiniz?'";
-        echo '<li class="mt-3">'.$baslik.' <a class="btn btn-warning btn-sm" href="goruntule.php?icerik_id='.$sira.'">Görüntüle</a> <a class="btn btn-info btn-sm" href="card.php?icerik_id='.$sira.'">Card Aç</a> <a class="btn btn-warning btn-sm" href="veri-sil.php?icerik_id='.$sira.' " onclick="return confirm('.$onay.')">Sil</a> <a class="btn btn-warning btn-sm" href="veri-guncelle.php?icerik_id='.$sira.'">Güncelle</a></li>';
-
+        echo '  <div class="col mb-4">
+        <div class="card">
+          <img src="'.$resim.'" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">'.$baslik.'</h5>
+            <p class="card-text">'.$metin.'</p>
+            <a class="btn btn-warning btn-sm" href="goruntule.php?icerik_id='.$sira.'">Görüntüle</a> <a class="btn btn-info btn-sm" href="card.php?icerik_id='.$sira.'">Card Aç</a> <a class="btn btn-warning btn-sm" href="veri-sil.php?icerik_id='.$sira.' " onclick="return confirm('.$onay.')">Sil</a> <a class="btn btn-warning btn-sm" href="veri-guncelle.php?icerik_id='.$sira.'">Güncelle</a>
+          </div>
+        </div>
+      </div>';
+       
     }
 }else{
     echo "Sonuç bulunamadı";
 }
 
 
-echo '</div>';
+echo '</div></div>';
+//****Buradan aşağısı kayıt listeleme için kullanılıyor. Buradan aşağısına elleme bu şekilde kalsın. Karışıklık olmasın önemli çünkü... */
 #kayıt ekleme bölümü buradan aşağısı
 if(isset($_GET['basariyla-eklendi'])){
     echo "Kayıt eklendi";

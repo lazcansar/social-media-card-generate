@@ -1,4 +1,4 @@
-<? include 'header.php' ?>
+<?php include 'header.php' ?>
  
 <?php
 if(isset($_POST['kayit'])){
@@ -45,7 +45,7 @@ if(isset($_GET['kayit'])){
 }
  ?>
 <form action="" method="post">
-<input type="hidden" name="yetki">
+<input type="hidden" name="yetki" value="0">
 <input class="form-control mt-2" type="text" name="ad" placeholder="İsminiz">
 <input class="form-control mt-2" type="text" name="mail" placeholder="E-Posta Adresi">
 <input class="form-control mt-2" type="password" name="sifre" placeholder="Şifre">

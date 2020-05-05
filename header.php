@@ -18,6 +18,6 @@ include ("baglan.php"); ?>
 </head>
 <body>
 <div class="container baslik text-center mt-4 border bg-light p-3">
-<a href="/"><h1>Sosyal Medya içerik Ekle</h1></a>
+<a href="./"><h1>Sosyal Medya içerik Ekle</h1></a>
 </div>
 

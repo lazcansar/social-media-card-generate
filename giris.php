@@ -2,7 +2,7 @@
 include ('baglan.php');
 ?>
  
-<?
+<?php
 if(isset($_POST['giris'])){
 $posta = $_POST['mail'];
 $sifre = $_POST['sifre'];
