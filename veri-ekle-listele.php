@@ -5,17 +5,22 @@ echo '<li class="mt-3">'.$baslik.' <a class="btn btn-warning btn-sm" href="gorun
 if(isset($_SESSION['mail'])){
     echo '<div class="container shadow p-3 mt-2 bg-primary text-white">';
   echo "Hoş geldin <b>".$_SESSION['ad']."</b> | ";
-  echo "<a class='btn btn-sm btn-success' href='cikis.php' class='text-white'>Çıkış Yap</a></div>";
+  echo "<a class='btn btn-sm btn-success' href='cikis.php' class='text-white'>Çıkış Yap</a>";
+  if(isset($_GET['basariyla-silindi'])){
+    echo '<div class="mt-2">Kayıt başarılı bir şekilde silindi!</div>';
+}
+if(isset($_GET['basariyla-eklendi'])){
+  echo '<div class="mt-2">Kayıt başarılı bir şekilde eklendi!</div>';
+}
+  echo "</div>";
+  
   echo '
 <div class="container mt-2 p-3 veri-ekle card shadow">
 
 <div class="card bg-dark mt-4 mb-4 p-3">
-   <h3 class="text-center kayitli-veriler p-2">Kayıtlı Veriler</h3>
+   <h3 class="text-center kayitli-veriler p-2">Son Eklenen Kayıtlı Veriler</h3>
    <div class="row row-cols-1 row-cols-md-3">';
-   #kayıt ekleme bölümü buradan aşağısı
-if(isset($_GET['basariyla-silindi'])){
-    echo "Kayıt başarıyla silindi...";
-}
+
    #kayıt listeleme
 $stmt = $db->prepare("SELECT * FROM yazilar");
 $stmt->execute();
@@ -26,13 +31,17 @@ if ($yazilar->num_rows > 0){
         $baslik = $cikti['baslik'];
         $resim = $cikti['resim_url'];
         $metin = $cikti['metin'];
+        $basliku= 29;
+        $basliko = substr($baslik,0,$basliku);
+        $aciklamauzunluk = 70;
+        $aciklamaozet=mb_substr($metin,0,$aciklamauzunluk);
         $onay = "'Silmek istediğinize emin misiniz?'";
-        echo '  <div class="col mb-4">
+        echo '  <div class="col mb-4 mt-4">
         <div class="card">
           <img src="'.$resim.'" class="card-img-top" alt="...">
           <div class="card-body">
-            <h5 class="card-title">'.$baslik.'</h5>
-            <p class="card-text">'.$metin.'</p>
+            <h5 class="card-title">'.$basliko.'</h5>
+            <p class="card-text">'.$aciklamaozet.'...</p>
             <a class="btn btn-warning btn-sm" href="goruntule.php?icerik_id='.$sira.'">Görüntüle</a> <a class="btn btn-info btn-sm" href="card.php?icerik_id='.$sira.'">Card Aç</a> <a class="btn btn-warning btn-sm" href="veri-sil.php?icerik_id='.$sira.' " onclick="return confirm('.$onay.')">Sil</a> <a class="btn btn-warning btn-sm" href="veri-guncelle.php?icerik_id='.$sira.'">Güncelle</a>
           </div>
         </div>
@@ -44,12 +53,24 @@ if ($yazilar->num_rows > 0){
 }
 
 
-echo '</div></div>';
+echo '</div>
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    <li class="page-item disabled">
+      <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Önceki</a>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item">
+      <a class="page-link" href="#">Sonraki</a>
+    </li>
+  </ul>
+</nav>
+</div>';
 //****Buradan aşağısı kayıt listeleme için kullanılıyor. Buradan aşağısına elleme bu şekilde kalsın. Karışıklık olmasın önemli çünkü... */
 #kayıt ekleme bölümü buradan aşağısı
-if(isset($_GET['basariyla-eklendi'])){
-    echo "Kayıt eklendi";
-}
+
 
  if(isset($_POST['ekle'])){        
 $stmt = $db->prepare("INSERT INTO yazilar VALUES (?,?,?,?,?,?)");

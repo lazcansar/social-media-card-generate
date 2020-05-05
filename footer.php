@@ -7,3 +7,6 @@ Copyright &copy 2020 | Kullanım Şartları ve Sözleşmesi - Powered By <a href
 
 </body>
 </html>
+<?php
+ob_end_flush();
+?>
