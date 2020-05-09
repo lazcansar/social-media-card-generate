@@ -8,9 +8,10 @@ if(isset($_SESSION['mail'])){
   echo "<a class='btn btn-sm btn-success' href='cikis.php' class='text-white'>Çıkış Yap</a>";
   if(isset($_GET['basariyla-silindi'])){
     echo '<div class="mt-2">Kayıt başarılı bir şekilde silindi!</div>';
-}
-if(isset($_GET['basariyla-eklendi'])){
+}elseif(isset($_GET['basariyla-eklendi'])){
   echo '<div class="mt-2">Kayıt başarılı bir şekilde eklendi!</div>';
+}elseif(isset($_GET['basariyla-guncellendi'])){
+  echo '<div class="mt-2">Kayıt başarılı bir şekilde güncellendi!</div>';
 }
   echo "</div>";
   
