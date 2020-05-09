@@ -22,47 +22,59 @@ if(isset($_GET['basariyla-eklendi'])){
    <div class="row row-cols-1 row-cols-md-3">';
 
    #kayıt listeleme
-$stmt = $db->prepare("SELECT * FROM yazilar");
-$stmt->execute();
-$yazilar = $stmt->get_result(); 
-if ($yazilar->num_rows > 0){
-    while($cikti = $yazilar->fetch_array()){
-        $sira = $cikti['icerik_id'];
-        $baslik = $cikti['baslik'];
-        $resim = $cikti['resim_url'];
-        $metin = $cikti['metin'];
-        $basliku= 29;
-        $basliko = substr($baslik,0,$basliku);
-        $aciklamauzunluk = 70;
-        $aciklamaozet=mb_substr($metin,0,$aciklamauzunluk);
-        $onay = "'Silmek istediğinize emin misiniz?'";
-        echo '  <div class="col mb-4 mt-4">
-        <div class="card">
-          <img src="'.$resim.'" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">'.$basliko.'</h5>
-            <p class="card-text">'.$aciklamaozet.'...</p>
-            <a class="btn btn-warning btn-sm" href="goruntule.php?icerik_id='.$sira.'">Görüntüle</a> <a class="btn btn-info btn-sm" href="card.php?icerik_id='.$sira.'">Card Aç</a> <a class="btn btn-warning btn-sm" href="veri-sil.php?icerik_id='.$sira.' " onclick="return confirm('.$onay.')">Sil</a> <a class="btn btn-warning btn-sm" href="veri-guncelle.php?icerik_id='.$sira.'">Güncelle</a>
-          </div>
-        </div>
-      </div>';
-       
-    }
-}else{
-    echo "Sonuç bulunamadı";
-}
+   $stmt = $db->prepare("SELECT count(*) FROM yazilar");
+   $stmt->execute();
+   $sonuc = $stmt->get_result();
+   if($sonuc->num_rows < 1) die('Kayıt bulunamadı');
+   
+   $sayfa_sayisi = $sonuc->fetch_array(MYSQLI_NUM);
+   $limit = 3;
+   
+   $ofset = isset($_GET['sayfa']) ? $_GET['sayfa'] : 0;
+   
+   $stmt = $db->prepare("SELECT * FROM yazilar ORDER BY icerik_id DESC LIMIT ? OFFSET ?");
+   $stmt->bind_param("ii", $limit, $ofset);
+   $stmt->execute();
+   $sonuc = $stmt->get_result();
+   
+   while($cikti = $sonuc->fetch_array()){
+       $sira = $cikti['icerik_id'];
+       $baslik = $cikti['baslik'];
+       $resim = $cikti['resim_url'];
+       $metin = $cikti['metin'];
+       $basliku= 29;
+       $basliko = mb_substr($baslik,0,$basliku);
+       $aciklamauzunluk = 70;
+       $aciklamaozet=mb_substr($metin,0,$aciklamauzunluk);
+       $onay = "'Silmek istediğinize emin misiniz?'";
+       echo '  <div class="col mb-4 mt-4">
+       <div class="card">
+         <img src="'.$resim.'" class="card-img-top" alt="...">
+         <div class="card-body">
+           <h5 class="card-title">'.$basliko.'</h5>
+           <p class="card-text">'.$aciklamaozet.'...</p>
+           <a class="btn btn-warning btn-sm" href="goruntule.php?icerik_id='.$sira.'">Görüntüle</a> <a class="btn btn-info btn-sm" href="card.php?icerik_id='.$sira.'">Card Aç</a> <a class="btn btn-warning btn-sm" href="veri-sil.php?icerik_id='.$sira.' " onclick="return confirm('.$onay.')">Sil</a> <a class="btn btn-warning btn-sm" href="veri-guncelle.php?icerik_id='.$sira.'">Güncelle</a>
+         </div>
+       </div>
+     </div>';  
+   
+   }
+   echo '</div>
+   <nav aria-label="Page navigation example">
+     <ul class="pagination justify-content-center">
+       <li class="page-item disabled">
+         <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Önceki</a>
+       </li>';
+   if($sayfa_sayisi[0] > $limit){
+       $x = 0;
+       for($i = 0; $i < $sayfa_sayisi[0]; $i += $limit){
+           $x++;
+           echo "<li class='page-item'><a class='page-link' href='?sayfa=$i'>$x</a></li>";
+       }
+   }
 
 
-echo '</div>
-<nav aria-label="Page navigation example">
-  <ul class="pagination justify-content-center">
-    <li class="page-item disabled">
-      <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Önceki</a>
-    </li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <li class="page-item">
+echo '
       <a class="page-link" href="#">Sonraki</a>
     </li>
   </ul>
